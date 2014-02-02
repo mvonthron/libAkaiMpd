@@ -12,7 +12,7 @@ public:
     DeviceList();
     ~DeviceList();
 
-    const std::vector<Device *>& listDevices();
+    void scanDevices();
 
     bool empty() const {return list.empty(); }
     iterator begin() { return list.begin(); }
@@ -21,6 +21,7 @@ public:
 
 private:
     std::vector<Device *> list;
+    int scanDevicesForCard(int cardno);
 };
 
 

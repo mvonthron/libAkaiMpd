@@ -4,18 +4,17 @@
 #include "devicelist.h"
 #include "device.h"
 
+
 using namespace std;
 
 
 int main()
 {
-    cout << "Hello World!" << endl;
-
     DeviceList devList;
-    devList.listDevices();
+    devList.scanDevices();
 
     for(auto &dev: devList){
-        cout << dev->test() << endl;
+        dev->print();
     }
 
     return 0;
