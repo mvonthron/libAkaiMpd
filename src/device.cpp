@@ -126,3 +126,41 @@ void Device::print()
     cout << "Device n° " << deviceId << " (" << deviceCode << ")" << endl;
 }
 
+void Device::processEvent(snd_seq_event_t *event)
+{
+    if(event->source.client != clientId || event->source.port != portId){
+        D("Not for me.");
+    }
+
+    switch(event->type){
+    case SND_SEQ_EVENT_NOTE:
+        D("SND_SEQ_EVENT_NOTE");
+        break;
+    case SND_SEQ_EVENT_NOTEON:
+        D("SND_SEQ_EVENT_NOTEON");
+        break;
+    case SND_SEQ_EVENT_NOTEOFF:
+        D("SND_SEQ_EVENT_NOTEOFF");
+        break;
+    case SND_SEQ_EVENT_KEYPRESS:
+        D("SND_SEQ_EVENT_KEYPRESS");
+        break;
+
+    case SND_SEQ_EVENT_CONTROLLER:
+        D("SND_SEQ_EVENT_CONTROLLER");
+        break;
+    case SND_SEQ_EVENT_PGMCHANGE:
+        D("SND_SEQ_EVENT_PGMCHANGE");
+        break;
+    case SND_SEQ_EVENT_CHANPRESS:
+        D("SND_SEQ_EVENT_CHANPRESS");
+        break;
+    case SND_SEQ_EVENT_PITCHBEND:
+        D("SND_SEQ_EVENT_PITCHBEND");
+        break;
+
+    default:
+        D(">> another event: %d", (int) event->type);
+    }
+}
+

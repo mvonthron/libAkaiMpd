@@ -129,9 +129,10 @@ void DeviceManager::loop()
             err = snd_seq_event_input(handle, &event);
             if (err < 0)
                 break;
-            if (event)
-                D("bleh");
+            if (event){
+                list[0]->processEvent(event);
 //                dump_event(event);
+            }
         } while (err > 0);
         fflush(stdout);
 //        if (stop)
