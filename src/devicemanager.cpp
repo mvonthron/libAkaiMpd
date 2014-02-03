@@ -47,41 +47,6 @@ void DeviceManager::init()
 }
 
 
-int DeviceManager::scanDevicesForCard(int cardno)
-{
-    snd_ctl_t *ctl;
-    char name[32];
-    int err=0, count=0, device=-1;
-
-    sprintf(name, "hw:%d", cardno);
-    if ((err = snd_ctl_open(&ctl, name, 0)) < 0) {
-        D("cannot open control for card %d: %s", cardno, snd_strerror(err));
-        return -1;
-    }
-
-    for (;;) {
-        if ((err = snd_ctl_rawmidi_next_device(ctl, &device)) < 0) {
-            D("cannot determine device number: %s", snd_strerror(err));
-            break;
-        }
-        if(device >= 0){
-            D("Found device %d on card %d", device, cardno);
-            Device *d = new Device(ctl, device);
-            d->init();
-
-            if( d->isValid() ) {
-                list.push_back( d );
-            }
-            count++;
-            //        list_device(ctl, cardno, device);
-        }else{
-            break;
-        }
-    }
-    snd_ctl_close(ctl);
-    return count;
-}
-
 void DeviceManager::scanDevices()
 {
     snd_seq_client_info_t *cinfo;
@@ -131,7 +96,6 @@ void DeviceManager::loop()
                 break;
             if (event){
                 list[0]->processEvent(event);
-//                dump_event(event);
             }
         } while (err > 0);
         fflush(stdout);

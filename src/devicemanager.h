@@ -25,7 +25,6 @@ public:
 private:
     void init();
     std::vector<Device *> list;
-    int scanDevicesForCard(int cardno);
 
     snd_seq_t *handle;
     snd_seq_addr_t *ports;
