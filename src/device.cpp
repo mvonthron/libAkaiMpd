@@ -14,6 +14,22 @@ Device::Device(snd_ctl_t *ctl, int devId):
     D("Creating device %d", deviceId);
 }
 
+Device::Device(snd_seq_client_info_t *cinfo, snd_seq_port_info_t *pinfo):
+    client(cinfo), port(pinfo)
+{
+//    printf("%3d:%-3d  %-32.32s %s\n",
+//           snd_seq_port_info_get_client(port),
+//           snd_seq_port_info_get_port(port),
+//           snd_seq_client_info_get_name(client),
+//           snd_seq_port_info_get_name(port));
+    clientId = snd_seq_port_info_get_client(pinfo);
+    portId = snd_seq_port_info_get_port(pinfo);
+    name = snd_seq_client_info_get_name(cinfo);
+    deviceId = snd_seq_port_info_get_client(pinfo);
+
+    snprintf(deviceCode, DEVICECODE_SIZE, "%d:%d", deviceId, snd_seq_port_info_get_port(pinfo));
+}
+
 Device::~Device()
 {
     D("Deleting %s (%d)", name.c_str(), deviceId);
@@ -21,6 +37,7 @@ Device::~Device()
 
 void Device::init()
 {
+#if 0
     snd_rawmidi_info_t *info;
     const char *_name;
     const char *sub_name;
@@ -78,10 +95,29 @@ void Device::init()
                    0, deviceId, sub, sub_name);
         }
     }
+#endif
 }
 
 bool Device::isValid()
 {
+    /* no name: must be an error */
+    if(name.empty())
+        return false;
+
+    /* client = 0 => system stuff */
+    if(deviceId <= 0)
+        return false;
+
+    if(name.find("Akai") == string::npos)
+        return false;
+
+    ///@todo understand why
+    /* we need both READ and SUBS_READ */
+    if ((snd_seq_port_info_get_capability(port)
+         & (SND_SEQ_PORT_CAP_READ | SND_SEQ_PORT_CAP_SUBS_READ))
+        != (SND_SEQ_PORT_CAP_READ | SND_SEQ_PORT_CAP_SUBS_READ))
+        return false;
+
     return true;
 }
 

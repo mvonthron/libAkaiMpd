@@ -2,17 +2,20 @@
 #define DEVICELIST_H
 
 #include <vector>
+#include <alsa/asoundlib.h>
+
 #include "device.h"
 
-class DeviceList
+class DeviceManager
 {
 public:
     typedef std::vector<Device *>::iterator iterator;
 
-    DeviceList();
-    ~DeviceList();
+    DeviceManager();
+    ~DeviceManager();
 
     void scanDevices();
+    void loop();
 
     bool empty() const {return list.empty(); }
     iterator begin() { return list.begin(); }
@@ -20,8 +23,12 @@ public:
 
 
 private:
+    void init();
     std::vector<Device *> list;
     int scanDevicesForCard(int cardno);
+
+    snd_seq_t *handle;
+    snd_seq_addr_t *ports;
 };
 
 

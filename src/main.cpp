@@ -1,21 +1,22 @@
 #include <iostream>
 #include <vector>
 
-#include "devicelist.h"
+#include "devicemanager.h"
 #include "device.h"
-
 
 using namespace std;
 
 
 int main()
 {
-    DeviceList devList;
-    devList.scanDevices();
+    DeviceManager devManager;
+    devManager.scanDevices();
 
-    for(auto &dev: devList){
+    for(auto &dev: devManager){
         dev->print();
     }
+
+    devManager.loop();
 
     return 0;
 }
