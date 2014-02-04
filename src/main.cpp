@@ -6,6 +6,15 @@
 
 using namespace std;
 
+void padReceiver(int id, Event::Type event, int value)
+{
+    std::cout << "Pad " << id << " value: " << value << endl;
+}
+
+void sliderReceiver(int id, int value)
+{
+    std::cout << "Slider " << id << " value: " << value << endl;
+}
 
 int main()
 {
@@ -13,6 +22,8 @@ int main()
     devManager.scanDevices();
 
     for(auto &dev: devManager){
+        dev->setPadReceiver(&padReceiver);
+
         dev->print();
     }
 
