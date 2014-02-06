@@ -37,7 +37,7 @@ void Device::init()
 {
 }
 
-bool Device::isValid()
+bool Device::isValid() const
 {
     /* no name: must be an error */
     if(name.empty())
@@ -60,7 +60,7 @@ bool Device::isValid()
     return true;
 }
 
-void Device::print()
+void Device::print() const
 {
     cout << "Device n° " << deviceId << " (" << deviceCode << ")" << endl;
 }
