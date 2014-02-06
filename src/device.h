@@ -28,8 +28,8 @@ public:
     virtual ~Device();
 
     virtual void init();
-    virtual bool isValid();
-    virtual void print();
+    virtual bool isValid() const;
+    virtual void print() const;
 
     virtual void processEvent(snd_seq_event_t *event);
     void setPadReceiver(PadReceiver receiver);
