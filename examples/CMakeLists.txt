@@ -1,5 +1,5 @@
 include_directories(${libAkaiMpd_SOURCE_DIR}/src)
 include_directories(${libAkaiMpd_SOURCE_DIR}/src/linux)
 set(CMAKE_CXX_FLAGS    "-std=c++11 -Wno-c++11-compat​​​​​​​​​​​​​​​​​​​ ${CMAKE_CXX_LINK_FLAGS}")
-add_executable(main main.cpp)
-target_link_libraries(main asound akaimpd asound)
+add_executable(simple simple.cpp)
+target_link_libraries(simple akaimpd)

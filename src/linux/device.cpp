@@ -2,7 +2,7 @@
 #include <iostream>
 #include <stdio.h>
 
-#include "device.h"
+#include "device.hpp"
 #include "utils.h"
 
 using namespace std;

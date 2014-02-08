@@ -1,4 +1,4 @@
-#include "devicemanager.h"
+#include "devicemanager.hpp"
 #include "utils.h"
 
 DeviceManager::DeviceManager()
