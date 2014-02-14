@@ -16,14 +16,24 @@
 
 #ifndef UTILS_H
 #define UTILS_H
-#include <stdbool.h>
+#ifdef __linux__ 
+    #include <stdbool.h>
 
-#define COLOR_GREEN   "\033[92m"
-#define COLOR_RED     "\033[91m"
-#define COLOR_BLUE    "\033[94m"
-#define COLOR_YELLOW  "\033[93m"
-#define COLOR_BOLD    "\033[1m"
-#define COLOR_CLEAR   "\033[0m"
+
+    #define COLOR_GREEN   "\033[92m"
+    #define COLOR_RED     "\033[91m"
+    #define COLOR_BLUE    "\033[94m"
+    #define COLOR_YELLOW  "\033[93m"
+    #define COLOR_BOLD    "\033[1m"
+    #define COLOR_CLEAR   "\033[0m"
+#else
+    #define COLOR_GREEN   ""
+    #define COLOR_RED     ""
+    #define COLOR_BLUE    ""
+    #define COLOR_YELLOW  ""
+    #define COLOR_BOLD    ""
+    #define COLOR_CLEAR   ""
+#endif
 
 #define MIN(x, y) ((x) < (y) ? (x) : (y))
 #define MAX(x, y) ((x) > (y) ? (x) : (y))

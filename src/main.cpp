@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
 
-#include "devicemanager.h"
-#include "device.h"
+#include "devicemanager.hpp"
+#include "device.hpp"
 
 using namespace std;
 
