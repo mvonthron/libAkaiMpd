@@ -7,7 +7,10 @@
 
 using namespace std;
 
-Device::Device(string _name, int _id): name(_name), deviceId(_id), status(Status::CLOSED)
+Device::Device(string _name, int _id): name(_name), 
+	deviceId(_id), status(Status::CLOSED),
+    padReceiver(&Device::defaultPadReceiver),
+    sliderReceiver(&Device::defaultSliderReceiver)
 {
 	init();
 	if(isValid()){
@@ -89,7 +92,28 @@ void Device::setStatus(Status::Type st)
 
 void Device::dispatch(DWORD_PTR msg, DWORD_PTR timestamp)
 {
-	cout << "Event" << endl;
+	// http://www.midi.org/techspecs/midimessages.php
+	UINT8 status, data1, data2;
+	status = LOBYTE(LOWORD(msg));
+	data1  = HIBYTE(LOWORD(msg));
+	data2  = LOBYTE(HIWORD(msg));
+	
+	switch(status & 0xF0) {
+	case 128:
+		printf("NOTE OFF[1]  note: %d, velocity: %d\n", data1, data2);
+		break;
+	case 144:
+		printf("NOTE ON[1]  note: %d, velocity: %d\n", data1, data2);
+		break;
+	case 208:
+		printf("AFTERTOUCH  status: %d, data1: %d, data2: %d\n", status & 0x0F, data1, data2);
+		break;
+	case 176:
+		printf("CTRL CHANGE  status: %d, data1: %d, data2: %d\n", status & 0x0F, data1, data2);
+		break;
+	default:
+		printf("  status: %d, data1: %d, data2: %d\n", status, data1, data2);
+	}
 }
 
 void Device::setPadReceiver(Device::PadReceiver receiver)
