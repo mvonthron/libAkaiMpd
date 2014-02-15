@@ -5,7 +5,7 @@
 
 #include "device.hpp"
 
-class DeviceManager
+class __declspec(dllexport) DeviceManager
 {
 public:
     typedef std::vector<Device *>::iterator iterator;

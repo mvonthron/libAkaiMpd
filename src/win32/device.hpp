@@ -15,7 +15,7 @@ struct Event {
 };
 
 
-class Device
+class __declspec(dllexport) Device
 {
     typedef void (*PadReceiver)(int, Event::Type, int);
     typedef void (*SliderReceiver)(int, int);
