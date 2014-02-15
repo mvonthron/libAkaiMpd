@@ -27,8 +27,6 @@ void DeviceManager::init()
 void DeviceManager::scanDevices()
 {
     int nbDev = midiInGetNumDevs();
-    D("Nb MIDI devices: %d", nbDev);
-
     if(nbDev <= 0)
         return;
 
@@ -42,21 +40,18 @@ void DeviceManager::scanDevices()
         }
 		Device *d = new Device(std::string(caps.szPname), i);
 
-        printf(".. %S .. [%d, %d, %d]\n", caps.szPname, caps.wMid, caps.wPid, caps.vDriverVersion);
 		if(d->isValid()){
 			list.push_back(d);
 		}else{
-			D("Invalid.");
 			delete d;
 		}
     }
 
-    //D("Device list contain %d elements.", (int) list.size());
-
+    D("Device list contain %d elements.", (int) list.size());
 }
 
 void DeviceManager::loop()
 {
-
+	/* no need on Windows */
 }
 

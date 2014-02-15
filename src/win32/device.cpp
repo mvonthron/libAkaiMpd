@@ -7,9 +7,8 @@
 
 using namespace std;
 
-Device::Device(string _name, int _id): name(_name), deviceId(_id)
+Device::Device(string _name, int _id): name(_name), deviceId(_id), status(Status::CLOSED)
 {
-    //~ snprintf(deviceCode, DEVICECODE_SIZE, "hw:%d", deviceId);
 	init();
 	if(isValid()){
 		midiInStart(handle);
@@ -38,7 +37,7 @@ bool Device::isValid() const
     if(name.empty())
         return false;
 
-    /* client = 0 => system stuff */
+    /* */
     if(deviceId < 0)
         return false;
 
@@ -55,17 +54,18 @@ void Device::print() const
 
 void CALLBACK Device::processEvent(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam1, DWORD_PTR dwParam2)
 {
+	Device *dev = (Device *) dwInstance;
 
 	switch(wMsg) {
 	case MIM_OPEN:
-		printf("Midi device opened\n");
+		cout << "Opening" << endl;
+		dev->setStatus(Status::OPENED);
 		break;
 	case MIM_CLOSE:
-		printf("Midi device closed\n");
+		dev->setStatus(Status::CLOSED);
 		break;
 	case MIM_DATA:
-		printf("Midi data\n");
-		//handleData(dwParam1, dwParam1);
+		dev->dispatch(dwParam1, dwParam1);
 		break;
 	case MIM_MOREDATA:
 		printf("Some more data\n");
@@ -81,6 +81,16 @@ void CALLBACK Device::processEvent(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInsta
 	}
 }
 
+void Device::setStatus(Status::Type st)
+{
+	status = st;
+	cout << "Status set to " << Status::toString(status) << endl;
+}
+
+void Device::dispatch(DWORD_PTR msg, DWORD_PTR timestamp)
+{
+	cout << "Event" << endl;
+}
 
 void Device::setPadReceiver(Device::PadReceiver receiver)
 {
@@ -116,4 +126,18 @@ string Event::toString(Event::Type e)
     case Event::VALUECHANGE:
         return "Value Change";
     }
+}
+
+string Status::toString(Status::Type s)
+{
+	switch(s){
+	case Status::OPENED:
+		return "Open";
+	case Status::INIT:
+		return "Init";
+	case Status::CLOSED:
+		return "Close";
+	case Status::ERR:
+		return "Error";
+	}
 }

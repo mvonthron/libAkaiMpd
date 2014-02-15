@@ -16,6 +16,15 @@ struct Event {
     static std::string toString(Event::Type e);
 };
 
+struct Status {
+	enum Type {
+		CLOSED,
+		INIT,
+		OPENED,
+		ERR /* thanks for the ERROR macro... */
+	};
+	static std::string toString(Status::Type e);
+};
 
 class __declspec(dllexport) Device
 {
@@ -29,6 +38,9 @@ public:
     virtual void init();
     virtual bool isValid() const;
     virtual void print() const;
+
+	void setStatus(Status::Type);
+	void dispatch(DWORD_PTR msg, DWORD_PTR timestamp);
 
     static void CALLBACK processEvent(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam1, DWORD_PTR dwParam2);
     void setPadReceiver(PadReceiver receiver);
@@ -45,6 +57,7 @@ private:
     std::string name;
     HMIDIIN handle;
     int deviceId;
+	Status::Type status;
 };
 
 #endif // DEVICE_H
