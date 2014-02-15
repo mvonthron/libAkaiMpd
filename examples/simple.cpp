@@ -28,6 +28,7 @@ int main()
     }
 
     devManager.loop();
+	getchar();
 
     return 0;
 }

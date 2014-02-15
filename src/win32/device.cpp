@@ -7,9 +7,13 @@
 
 using namespace std;
 
-Device::Device()
+Device::Device(string _name, int _id): name(_name), deviceId(_id)
 {
     //~ snprintf(deviceCode, DEVICECODE_SIZE, "hw:%d", deviceId);
+	init();
+	if(isValid()){
+		midiInStart(handle);
+	}
 }
 
 
@@ -20,6 +24,12 @@ Device::~Device()
 
 void Device::init()
 {
+	int ret = midiInOpen(&handle, deviceId, (DWORD_PTR) Device::processEvent, (DWORD_PTR) this, CALLBACK_FUNCTION);
+
+	if(ret){
+		cout << "Could not open dev" << endl;
+		deviceId = -1;
+	}
 }
 
 bool Device::isValid() const
@@ -29,7 +39,7 @@ bool Device::isValid() const
         return false;
 
     /* client = 0 => system stuff */
-    if(deviceId <= 0)
+    if(deviceId < 0)
         return false;
 
     if(name.find("Akai") == string::npos)
@@ -40,12 +50,37 @@ bool Device::isValid() const
 
 void Device::print() const
 {
-    cout << "Device n° " << deviceId << " (" << deviceCode << ")" << endl;
+    cout << "Device " << name << endl;
 }
 
-void Device::processEvent()
+void CALLBACK Device::processEvent(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam1, DWORD_PTR dwParam2)
 {
+
+	switch(wMsg) {
+	case MIM_OPEN:
+		printf("Midi device opened\n");
+		break;
+	case MIM_CLOSE:
+		printf("Midi device closed\n");
+		break;
+	case MIM_DATA:
+		printf("Midi data\n");
+		//handleData(dwParam1, dwParam1);
+		break;
+	case MIM_MOREDATA:
+		printf("Some more data\n");
+		break;
+	case MIM_LONGDATA:
+		printf("Some long data\n");
+		break;
+	case MIM_ERROR:
+		printf("*** Error!\n");
+		break;
+	default:
+		printf("Msg: %d\n", wMsg);
+	}
 }
+
 
 void Device::setPadReceiver(Device::PadReceiver receiver)
 {
@@ -56,7 +91,7 @@ void Device::setPadReceiver(Device::PadReceiver receiver)
 
 void Device::setSliderReceiver(Device::SliderReceiver receiver)
 {
-    if(receiver){
+    if(receiver) {
         sliderReceiver = receiver;
     }
 }
@@ -71,11 +106,9 @@ void Device::defaultSliderReceiver(int id, int val)
     cout << ".. Slider " << id << ", Value: " << val << endl;
 }
 
-
-
 string Event::toString(Event::Type e)
 {
-    switch(e){
+    switch(e) {
     case Event::NOTEON:
         return "Note On";
     case Event::NOTEOFF:

@@ -2,6 +2,8 @@
 #define DEVICE_H
 
 #include <string>
+#include <windows.h>
+#include <mmsystem.h>
 
 #define DEVICECODE_SIZE 32
 
@@ -21,19 +23,17 @@ class __declspec(dllexport) Device
     typedef void (*SliderReceiver)(int, int);
 
 public:
-    Device();
+    Device(std::string _name, int _id);
     virtual ~Device();
 
     virtual void init();
     virtual bool isValid() const;
     virtual void print() const;
 
-    virtual void processEvent(/* */);
+    static void CALLBACK processEvent(HMIDIIN hMidiIn, UINT wMsg, DWORD_PTR dwInstance, DWORD_PTR dwParam1, DWORD_PTR dwParam2);
     void setPadReceiver(PadReceiver receiver);
     void setSliderReceiver(SliderReceiver receiver);
 
-    int clientId;
-    int portId;
 
 private:
     PadReceiver padReceiver;
@@ -43,7 +43,7 @@ private:
     static void defaultSliderReceiver(int id, int val);
 
     std::string name;
-    char deviceCode[DEVICECODE_SIZE];
+    HMIDIIN handle;
     int deviceId;
 };
 
