@@ -18,3 +18,8 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
+
+unix:!macx: LIBS += -L$$PWD/../../bin/ -lakaimpd
+
+INCLUDEPATH += $$PWD/../../src/linux
+DEPENDPATH += $$PWD/../../src/linux
