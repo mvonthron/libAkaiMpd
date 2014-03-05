@@ -3,8 +3,6 @@
 
 #include <QMainWindow>
 
-#include "devicemanager.hpp"
-#include "device.hpp"
 
 
 namespace Ui {
@@ -23,7 +21,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    DeviceManager devManager;
 };
 
 #endif // MAINWINDOW_H

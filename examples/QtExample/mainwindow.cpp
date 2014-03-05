@@ -13,8 +13,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    devManager.scanDevices();
 }
 
 MainWindow::~MainWindow()
@@ -25,10 +23,4 @@ MainWindow::~MainWindow()
 
 void MainWindow::loop()
 {
-    DeviceManager::iterator dev;
-    for(dev=devManager.begin(); dev!=devManager.end(); dev++){
-        (*dev)->print();
-    }
-
-    devManager.loop();
 }
