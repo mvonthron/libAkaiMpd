@@ -10,8 +10,8 @@ DeviceManager::~DeviceManager()
 {
     snd_seq_close(handle);
 
-    for(auto &e: list){
-        delete e;
+    for(std::vector<Device *>::iterator it = list.begin(); it != list.end(); it++){
+        delete *it;
     }
     list.clear();
 }
