@@ -30,7 +30,7 @@ MainWindow::MainWindow(InputThread *t, QWidget *parent) :
 
 
     connect(inThread, SIGNAL(setPadStatus(int,bool)), this, SLOT(updateButtonStatus(int,bool)));
-    connect(inThread, SIGNAL(setPadValue(int,int)), this, SLOT(updateButtonStatus(int,int)));
+    connect(inThread, SIGNAL(setPadValue(int,int)), this, SLOT(updateButtonValue(int,int)));
 
     connect(inThread, SIGNAL(setSlider(int)), ui->slider, SLOT(setValue(int)));
     connect(inThread, SIGNAL(log(QString)), ui->statusBar, SLOT(showMessage(QString)));
@@ -42,10 +42,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::loop()
-{
-}
 
 void MainWindow::updateButtonStatus(int pad, bool onOff)
 {
@@ -65,12 +61,12 @@ void MainWindow::updateButtonValue(int pad, int value)
         ui->statusBar->showMessage(QString("Invalid pad number %0").arg(pad));
     }
     else {
+        QString text;
         if(value == 0){
-            pads[pad-1]->setText(QString("PAD %0").arg(pad));
+            text = QString("PAD %0").arg(pad);
         }else{
-            pads[pad-1]->setText(QString("%0").arg(value));
+            text = QString("%0").arg(value);
         }
-
-
+        pads[pad-1]->setText(text);
     }
 }

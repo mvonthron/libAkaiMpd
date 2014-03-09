@@ -12,7 +12,7 @@ void InputThread::padReceiver(int id, Event::Type event, int value, void *object
 {
 
     static int lastPadAccessed = 1;
-    static int lastValue = 0;
+    std::cout << "Receiving pad signal: " << id << ": " << value << " Type: " << Event::toString(event) << std::endl;
 
     if(!object){
         std::cerr << "Error with object" << std::endl;
@@ -21,21 +21,24 @@ void InputThread::padReceiver(int id, Event::Type event, int value, void *object
 
     InputThread *in = static_cast<InputThread *>(object);
 
-    if(id == 0){
-        // value change, no id
-        return;
+    /** value change is tricky because no pad value is associated :(
+     *  we have to remember which pad was accessed last, unfortunately
+     *  this doesn't work well when several pads are touched at the same time
+     */
+    if(id == 0 && event == Event::VALUECHANGE){
+        emit in->setPadValue(lastPadAccessed, value);
+
+    }else{
+
+        int pad = id - InputThread::PAD_OFFSET;
+        if(pad < 1){
+            // invalid pad
+            return;
+        }
+
+        lastPadAccessed = pad;
+        emit in->setPadStatus(pad, event == Event::NOTEON);
     }
-
-    int pad = id - InputThread::PAD_OFFSET;
-
-    if(pad < 1){
-        // invalid pad
-        return;
-    }
-
-    std::cout << "Receiving pad signal: " << pad << " " << value << std::endl;
-    emit in->setPadStatus(pad, event == Event::NOTEON);
-
 
 }
 

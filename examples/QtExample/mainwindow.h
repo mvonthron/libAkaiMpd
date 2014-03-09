@@ -18,8 +18,6 @@ public:
     explicit MainWindow(InputThread *t, QWidget *parent = 0);
     ~MainWindow();
 
-    void loop();
-
 public slots:
     void updateButtonStatus(int pad, bool onOff);
     void updateButtonValue(int pad, int value);
