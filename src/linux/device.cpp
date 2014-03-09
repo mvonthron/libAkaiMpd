@@ -145,8 +145,6 @@ void Device::defaultSliderReceiver(int id, int val, void *obj)
     cout << ".. Slider " << id << ", Value: " << val << endl;
 }
 
-
-
 string Event::toString(Event::Type e)
 {
     switch(e){

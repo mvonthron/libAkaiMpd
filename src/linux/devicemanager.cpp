@@ -106,3 +106,16 @@ void DeviceManager::loop()
     snd_seq_close(handle);
 }
 
+Device* DeviceManager::getDeviceByName(std::string name)
+{
+    if(list.size() < 1){
+        return NULL;
+    }
+    for(iterator it=list.begin(); it!=list.end(); it++){
+        if((*it)->name == name){
+            return *it;
+        }
+    }
+    return NULL;
+}
+

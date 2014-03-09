@@ -16,9 +16,11 @@ public:
 
     
 signals:
-    void setPad(bool);
+    void setPadStatus(int, bool);
+    void setPadValue(int, int);
 
     void setSlider(int);
+    void log(QString);
     
 public slots:
     static void padReceiver(int id, Event::Type event, int value, void *object);

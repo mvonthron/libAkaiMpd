@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
 #include "inputthread.h"
 
 
@@ -19,9 +20,14 @@ public:
 
     void loop();
 
+public slots:
+    void updateButtonStatus(int pad, bool onOff);
+    void updateButtonValue(int pad, int value);
+
 private:
     Ui::MainWindow *ui;
     InputThread *inThread;
+    QPushButton *pads[16];
 };
 
 #endif // MAINWINDOW_H

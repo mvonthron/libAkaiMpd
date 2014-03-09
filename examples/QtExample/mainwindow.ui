@@ -34,6 +34,9 @@
         <property name="text">
          <string>PAD 15</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item row="0" column="0">
@@ -53,6 +56,9 @@
         <property name="text">
          <string>PAD 13</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item row="2" column="1">
@@ -71,6 +77,9 @@
         </property>
         <property name="text">
          <string>PAD 6</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -113,6 +122,9 @@
         <property name="text">
          <string>PAD 9</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item row="2" column="0">
@@ -135,6 +147,9 @@
         <property name="text">
          <string>PAD 5</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item row="3" column="3">
@@ -153,6 +168,9 @@
         </property>
         <property name="text">
          <string>PAD 4</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -173,6 +191,9 @@
         <property name="text">
          <string>PAD 10</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item row="1" column="2">
@@ -191,6 +212,9 @@
         </property>
         <property name="text">
          <string>PAD 11</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -211,6 +235,9 @@
         <property name="text">
          <string>PAD 12</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item row="2" column="3">
@@ -229,6 +256,9 @@
         </property>
         <property name="text">
          <string>PAD 8</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -249,6 +279,9 @@
         <property name="text">
          <string>PAD 7</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item row="0" column="1">
@@ -267,6 +300,9 @@
         </property>
         <property name="text">
          <string>PAD 14</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -287,6 +323,9 @@
         <property name="text">
          <string>PAD 2</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item row="3" column="2">
@@ -306,6 +345,9 @@
         <property name="text">
          <string>PAD 3</string>
         </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
        </widget>
       </item>
       <item row="0" column="3">
@@ -318,6 +360,9 @@
         </property>
         <property name="text">
          <string>PAD 16</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
         </property>
        </widget>
       </item>

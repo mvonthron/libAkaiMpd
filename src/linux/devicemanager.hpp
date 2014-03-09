@@ -21,6 +21,8 @@ public:
     iterator begin() { return list.begin(); }
     iterator end()  { return list.end(); }
 
+    Device* getDeviceByName(std::string name);
+
 
 private:
     void init();

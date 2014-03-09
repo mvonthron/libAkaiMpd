@@ -18,6 +18,7 @@ struct Event {
 
 class Device
 {
+    friend class DeviceManager;
     typedef void (*eventProcessor)(snd_seq_event_t *);
     typedef void (*PadReceiver)(int, Event::Type, int, void*);
     typedef void (*SliderReceiver)(int, int, void *);
