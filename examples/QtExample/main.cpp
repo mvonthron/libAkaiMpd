@@ -7,8 +7,10 @@ int main(int argc, char *argv[])
 {
     InputThread t;
     QApplication a(argc, argv);
-    MainWindow w;
+    MainWindow w(&t);
     w.show();
+
+
 
     t.start();
     return a.exec();

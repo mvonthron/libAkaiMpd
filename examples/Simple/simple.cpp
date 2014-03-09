@@ -6,12 +6,12 @@
 
 using namespace std;
 
-void padReceiver(int id, Event::Type event, int value)
+void padReceiver(int id, Event::Type event, int value, void *unused)
 {
     std::cout << "Pad " << id << " value: " << value << endl;
 }
 
-void sliderReceiver(int id, int value)
+void sliderReceiver(int id, int value, void *unused)
 {
     std::cout << "Slider " << id << " value: " << value << endl;
 }
